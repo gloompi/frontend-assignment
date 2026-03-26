@@ -6,7 +6,6 @@ import { MachineRow } from './MachineRow';
 export const MachineDataGrid = () => {
   const { machines, selectedIds, setSelectedIds } = useDashboard();
 
-  // ANTI-PATTERN: Expensive sorting logic executing synchronously on the main thread during every render
   const sortedMachines = machines.sort((a: any, b: any) => b.health - a.health);
 
   return (
@@ -21,12 +20,10 @@ export const MachineDataGrid = () => {
       </div>
       <div className="grid-body">
         {sortedMachines.map((machine: any, index: number) => (
-          // ANTI-PATTERN: Using array index as a key in a list that can be sorted or filtered
           <MachineRow
             key={index}
             machine={machine}
             isSelected={selectedIds.has(machine.id)}
-            // ANTI-PATTERN: Inline arrow function triggering full child re-renders
             onSelect={(id: string) => {
               const newSelected = new Set(selectedIds);
               if (newSelected.has(id)) newSelected.delete(id);

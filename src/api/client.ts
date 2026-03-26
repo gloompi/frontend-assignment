@@ -25,7 +25,6 @@ const mockDatabase: MachineData[] = [
 ];
 
 export const fetchSearchResults = async (query: string): Promise<MachineData[]> => {
-  // Simulate non-deterministic network latency between 100ms and 3000ms
   const delay = Math.floor(Math.random() * 2900) + 100;
   await new Promise((resolve) => setTimeout(resolve, delay));
 

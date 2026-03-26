@@ -10,13 +10,11 @@ export const SearchBar = () => {
   useEffect(() => {
     if (!searchQuery) return;
 
-    // ANTI-PATTERN: Massive network race condition. No AbortController or active flag.
-    // Rapid typing will cause out-of-order resolution and UI desync.
     const search = async () => {
       setIsLoading(true);
       try {
         const results = await fetchSearchResults(searchQuery);
-        setMachines(results as any); // ANTI-PATTERN: Unsafe type casting
+        setMachines(results as any);
       } catch (error) {
         console.error("Search failed", error);
       } finally {
@@ -29,7 +27,6 @@ export const SearchBar = () => {
 
   return (
     <div className="search-module">
-      {/* ANTI-PATTERN: Missing role="combobox", aria-expanded, and keyboard navigation handlers */}
       <div className="search-input-wrapper">
         <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <circle cx="11" cy="11" r="8" />

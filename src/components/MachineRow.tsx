@@ -2,8 +2,6 @@
 import React from 'react';
 import { useLiveTelemetry } from '../hooks/useLiveTelemetry';
 
-// ANTI-PATTERN: Wrapped in React.memo, but the parent passes a new inline function on every render,
-// destroying the shallow equality check and making the memoization useless.
 export const MachineRow = React.memo(({ machine, isSelected, onSelect }: any) => {
   const telemetry = useLiveTelemetry(machine.id);
 
@@ -43,7 +41,6 @@ export const MachineRow = React.memo(({ machine, isSelected, onSelect }: any) =>
           <span className="health-value">{machine.health}%</span>
         </div>
       </div>
-      {/* ANTI-PATTERN: Missing aria-live region to announce metric updates to screen readers */}
       <div className="row-cell machine-cpu">
         <span className="cpu-value">
           {telemetry.length ? `${telemetry[telemetry.length - 1].cpu.toFixed(1)}%` : '--'}
