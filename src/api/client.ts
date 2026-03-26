@@ -1,5 +1,5 @@
 // api/client.ts
-import { MachineData } from '../types';
+import { MachineData } from '../types/index-solution';
 
 const mockDatabase: MachineData[] = [
   { id: "M-001", name: "Server Alpha-01", status: "ONLINE", health: 98, location: "US-East-1", lastPing: "2ms" },
