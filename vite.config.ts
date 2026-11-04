@@ -6,6 +6,8 @@ import babel from '@rolldown/plugin-babel'
 export default defineConfig({
   plugins: [
     react(),
-    babel({ presets: [reactCompilerPreset()] })
+    // The React Compiler injects memo-cache branches that would distort unit-test
+    // coverage, so it's skipped under Vitest. e2e tests run against the compiled build.
+    ...(process.env.VITEST ? [] : [babel({ presets: [reactCompilerPreset()] })]),
   ],
 })
